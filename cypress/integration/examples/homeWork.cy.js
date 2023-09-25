@@ -60,7 +60,22 @@ describe('Cypress HomeWork test suite', ()=>
     cy.wait(3000)
     cy.get('#dialBtn_OK').click()
 
-    
+    cy.get('.icon24-Documents').click()
+
+    Cypress.Commands.add('dragTo', { prevSubject: 'element' }, (subject, targetSelector) => {
+        cy.wrap(subject)
+          .trigger('dragstart', { dataTransfer: {} }) // Trigger dragstart event on the element
+          .trigger('drag', { dataTransfer: {} }) // Trigger drag event on the element
+          .trigger('drop') // Trigger drop event on the element
+          .trigger('dragend'); // Trigger dragend event on the element
+        cy.get(targetSelector).trigger('drop'); // Trigger drop event on the target
+      });
+
+      cy.get('.GCSDBRWBFT').contains('example.txt').as('dragElement');
+      cy.get('#doc_tree_trash').as('dropTarget');
+      cy.get('@dragElement').dragTo('@dropTarget');
+    //   cy.get('.GCSDBRWBFT').contains('example.txt').dragTo('#doc_tree_trash');
+
   });
        
 
