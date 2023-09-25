@@ -57,7 +57,8 @@ describe('Cypress HomeWork test suite', ()=>
     cy.get('.GCSDBRWBN a b').click({ force: true })
     cy.get(".GCSDBRWBOQ").contains("Save in Documents").click();
     cy.get('.treeItemLabel').contains("My documents").should('be.visible').click()
-    cy.get('#dialBtn_OK:visible').click()
+    cy.wait(3000)
+    cy.get('#dialBtn_OK').click()
 
     
   });
