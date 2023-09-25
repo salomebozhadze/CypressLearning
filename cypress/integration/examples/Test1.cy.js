@@ -10,6 +10,21 @@ describe('Cypress first test suite', ()=>
         cy.get('.products').find('.product').should('have.length', 4)
         cy.get(':nth-child(3) > .product-action > button').click()
         cy.get('.products').find('.product').eq(2).contains('ADD TO CART').click()
+        console.log('sf')
+        cy.get('.products').find('.product').each(($el, index, $list) => {
+            const textVeg=$el.find('h4.product-name').text()
+            if(textVeg.includes('Cashews'))
+            {
+                $el.find('button').click()
+            }
+
+        })
+        // const logo=cy.get('.brand')
+        // cy.log(logo.text())
+        cy.get('.brand').then( (logoElement) => {
+            cy.log(logoElement.text())
+
+        })
     })
 }
 )
