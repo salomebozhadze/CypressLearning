@@ -62,18 +62,37 @@ describe('Cypress HomeWork test suite', ()=>
 
     cy.get('.icon24-Documents').click()
 
-    Cypress.Commands.add('dragTo', { prevSubject: 'element' }, (subject, targetSelector) => {
-        cy.wrap(subject)
-          .trigger('dragstart', { dataTransfer: {} }) // Trigger dragstart event on the element
-          .trigger('drag', { dataTransfer: {} }) // Trigger drag event on the element
-          .trigger('drop') // Trigger drop event on the element
-          .trigger('dragend'); // Trigger dragend event on the element
-        cy.get(targetSelector).trigger('drop'); // Trigger drop event on the target
-      });
+    // cy.get('.GCSDBRWBFT').contains('example.txt').should('be.visible').as('draggable');
+    // cy.get('#doc_tree_trash').should('be.visible').as('droppable'); // Pick up this
+    Cypress.Commands.add("dragAndDrop", { prevSubject: "element" }, (subject, targetEl) => {
+        cy.wrap(subject).trigger("mousedown", { button: 0 }).trigger("mousemove", { clientX: 100, clientY: 100 });
+        cy.get(targetEl).trigger("mousemove", { clientX: 100, clientY: 100 }).trigger("mouseup", { force: true });
+      }
+    );
+    cy.get('.GCSDBRWBFT').contains('example.txt').dragAndDrop("#doc_tree_trash");
 
-      cy.get('.GCSDBRWBFT').contains('example.txt').as('dragElement');
-      cy.get('#doc_tree_trash').as('dropTarget');
-      cy.get('@dragElement').dragTo('@dropTarget');
+    // cy.get('.GCSDBRWBFT').contains('example.txt').trigger('#doc_tree_trash')
+    // const dataTransfer = new DataTransfer();
+    // cy.get('.GCSDBRWBFT').contains('example.txt').first().trigger('dragstart', {
+    //     dataTransfer
+    //   });
+      
+    //   cy.get('#doc_tree_trash').trigger('drop', {
+    //     dataTransfer
+    //   });
+
+    // Cypress.Commands.add('dragTo', { prevSubject: 'element' }, (subject, targetSelector) => {
+    //     cy.wrap(subject)
+    //       .trigger('dragstart', { dataTransfer: {} }) // Trigger dragstart event on the element
+    //       .trigger('drag', { dataTransfer: {} }) // Trigger drag event on the element
+    //       .trigger('drop') // Trigger drop event on the element
+    //       .trigger('dragend'); // Trigger dragend event on the element
+    //     cy.get(targetSelector).trigger('drop'); // Trigger drop event on the target
+    //   });
+
+    //   cy.get('.GCSDBRWBFT').contains('example.txt').as('dragElement');
+    //   cy.get('#doc_tree_trash').as('dropTarget');
+    //   cy.get('@dragElement').dragTo('@dropTarget');
     //   cy.get('.GCSDBRWBFT').contains('example.txt').dragTo('#doc_tree_trash');
 
   });

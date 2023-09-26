@@ -27,3 +27,4 @@
 // cypress/support/commands.js
 
 import 'cypress-file-upload';
+import 'cypress-drag-drop';
