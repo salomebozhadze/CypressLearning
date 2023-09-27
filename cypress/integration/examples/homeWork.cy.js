@@ -1,4 +1,14 @@
 /// <reference types="cypress"/>
+/// <reference types="cypress-file-upload"/>
+
+
+import 'cypress-file-upload';
+import 'cypress-drag-drop';
+import LoginPage from '../pageObject/LoginPage.cy';
+import DocumentaPage from '../pageObject/DocumentPage.cy';
+import MailPage from '../pageObject/MailPage.cy';
+
+
 describe('Cypress HomeWork test suite', ()=>
 {
     // before
@@ -10,15 +20,18 @@ describe('Cypress HomeWork test suite', ()=>
 
     
     it('Login To Mail', () => {
+      const loginPage = new LoginPage;
+      const mailpage = new MailPage;
+      const documentPage =  new DocumentaPage;
 
         cy.visit('https://mailfence.com/')
-        cy.get('#signin').click()
-        cy.get('#UserID').type('sal.bozhadze@mailfence.com')
-        cy.get('#Password').type('Test12345!')
+        loginPage.getSignInButton().click()
+        loginPage.getEmailField().type('sal.bozhadze@mailfence.com')
+        loginPage.getPasswordField().type('Test12345!')
         cy.wait(3000)
-        cy.get('.btn').click()
+        loginPage.getLoginButton().click()
         cy.wait(5000)
-        cy.get('.icon24-Documents').click()
+        documentPage.getDocumentTab().click()
         cy.wait(3000)
         const fileName = 'example.txt';
     const fileContent = 'This is the content of the .txt file.';
@@ -39,61 +52,33 @@ describe('Cypress HomeWork test suite', ()=>
     cy.readFile(`cypress/fixtures/${fileName}`).should('contain', fileContent);
 
     //Send file By mail
-    cy.get('.checkIcon').click()
-    cy.get(':nth-child(2) > .more > .icon-Etc').click()
-    cy.get('.GCSDBRWBDR').trigger('mouseover');
-    cy.get('.GCSDBRWBOQ > .GCSDBRWBFR').contains('Send by e-mail').click()
-    cy.get('#mailTo > .GCSDBRWBPL').type('sal.bozhadze@mailfence.com')
-    cy.get('.GCSDBRWBCM > a').click()
-    cy.get('#mailSubject').type('Hello, it is mail')
-    cy.get('.GCSDBRWBJRB').should('be.visible')
+    documentPage.getUploadDocumentCheckBox().click()
+    documentPage.getMoreLinks().click()
+    documentPage.getSendLink().trigger('mouseover');
+    documentPage.getSendEmailLink().click()
+    mailpage.getMailToField().type('sal.bozhadze@mailfence.com')
+    mailpage.getSuggestEmail().click()
+    mailpage.getSubjectField().type('Hello, it is mail')
+    mailpage.getAttachment().should('be.visible')
     cy.wait(2000)
-    cy.get('#mailSend').click()
+    mailpage.getMailSendButton().click()
 
     cy.wait(4000)
-    cy.get('.GCSDBRWBCQC').find('.GCSDBRWBO').contains('Refresh').click()
-    cy.get('.listSubject').contains('Hello, it is mail').should('be.visible').click()
-    cy.get('.GCSDBRWBJRB').contains('example.txt').should('be.visible')
-    cy.get('.GCSDBRWBN a b').click({ force: true })
-    cy.get(".GCSDBRWBOQ").contains("Save in Documents").click();
-    cy.get('.treeItemLabel').contains("My documents").should('be.visible').click()
+    mailpage.getRefreshMail().click()
+    mailpage.getMailTitile().should('be.visible').click()
+    mailpage.getMailAttachment().should('be.visible')
+    mailpage.getAttachmentArrow().click({ force: true })
+    mailpage.getSaveLink().click();
+    mailpage.getDocumentFolder().should('be.visible').click()
     cy.wait(3000)
-    cy.get('#dialBtn_OK').click()
+    mailpage.getSaveButton().click()
 
-    cy.get('.icon24-Documents').click()
+    documentPage.getDocumentTab().click()
 
-    // cy.get('.GCSDBRWBFT').contains('example.txt').should('be.visible').as('draggable');
-    // cy.get('#doc_tree_trash').should('be.visible').as('droppable'); // Pick up this
-    Cypress.Commands.add("dragAndDrop", { prevSubject: "element" }, (subject, targetEl) => {
-        cy.wrap(subject).trigger("mousedown", { button: 0 }).trigger("mousemove", { clientX: 100, clientY: 100 });
-        cy.get(targetEl).trigger("mousemove", { clientX: 100, clientY: 100 }).trigger("mouseup", { force: true });
-      }
-    );
-    cy.get('.GCSDBRWBFT').contains('example.txt').dragAndDrop("#doc_tree_trash");
+ 
+    
+    documentPage.getDocument().dragAndDrop("#doc_tree_trash");
 
-    // cy.get('.GCSDBRWBFT').contains('example.txt').trigger('#doc_tree_trash')
-    // const dataTransfer = new DataTransfer();
-    // cy.get('.GCSDBRWBFT').contains('example.txt').first().trigger('dragstart', {
-    //     dataTransfer
-    //   });
-      
-    //   cy.get('#doc_tree_trash').trigger('drop', {
-    //     dataTransfer
-    //   });
-
-    // Cypress.Commands.add('dragTo', { prevSubject: 'element' }, (subject, targetSelector) => {
-    //     cy.wrap(subject)
-    //       .trigger('dragstart', { dataTransfer: {} }) // Trigger dragstart event on the element
-    //       .trigger('drag', { dataTransfer: {} }) // Trigger drag event on the element
-    //       .trigger('drop') // Trigger drop event on the element
-    //       .trigger('dragend'); // Trigger dragend event on the element
-    //     cy.get(targetSelector).trigger('drop'); // Trigger drop event on the target
-    //   });
-
-    //   cy.get('.GCSDBRWBFT').contains('example.txt').as('dragElement');
-    //   cy.get('#doc_tree_trash').as('dropTarget');
-    //   cy.get('@dragElement').dragTo('@dropTarget');
-    //   cy.get('.GCSDBRWBFT').contains('example.txt').dragTo('#doc_tree_trash');
 
   });
        
