@@ -51,7 +51,7 @@ describe('Cypress HomeWork test suite', ()=>
     documentPage.getSendEmailLink().click()
     mailpage.getMailToField().type('sal.bozhadze@mailfence.com')
     mailpage.getSuggestEmail().click()
-    mailpage.getSubjectField().type('Hello, it is mail')
+    mailpage.getSubjectField().type(data.mailtext)
     mailpage.getAttachment().should('be.visible')
     cy.wait(2000)
     mailpage.getMailSendButton().click()
@@ -67,10 +67,11 @@ describe('Cypress HomeWork test suite', ()=>
     mailpage.getSaveButton().click()
 
     documentPage.getDocumentTab().click()
+    documentPage.getDocument().dragAndDrop(documentPage.getTrash());
 
- 
-    
-    documentPage.getDocument().dragAndDrop("#doc_tree_trash");
+    documentPage.getTrash().click()
+    cy.wait(2000)
+    documentPage.getDocument().should('be.visible')
 
 
   });

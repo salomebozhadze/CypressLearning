@@ -46,6 +46,10 @@ class MailPage {
         return cy.get('#dialBtn_OK')
     }
 
+    getTexMail(){
+        return cy.get('#gwt-uid-40')
+    }
+
 
 }
 

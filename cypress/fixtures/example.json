@@ -3,5 +3,6 @@
   "password" : "Test12345!",
   "fileName" : "example.txt",
   "filePath" : "/Users/macbookair/CypressLearning/cypress/fixtures",
-  "fileContent" : "This is the content of the .txt file"
+  "fileContent" : "This is the content of the .txt file",
+  "mailtext" : "Hello, it is mail"
 }

@@ -24,6 +24,10 @@ class DocumentaPage {
         return cy.get('.GCSDBRWBFT').contains('example.txt')
     }
 
+    getTrash(){
+        return cy.get('#doc_tree_trash')
+    }
+
 
 }
 export default DocumentaPage;
