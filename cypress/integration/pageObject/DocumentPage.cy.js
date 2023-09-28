@@ -20,5 +20,10 @@ class DocumentaPage {
         return cy.get('.GCSDBRWBOQ > .GCSDBRWBFR').contains('Send by e-mail')
     }
 
+    getDocument(){
+        return cy.get('.GCSDBRWBFT').contains('example.txt')
+    }
+
+
 }
 export default DocumentaPage;

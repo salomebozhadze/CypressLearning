@@ -15,7 +15,7 @@ describe('My Test Framework Suite', function()
 it('My Test Framework case', function() {
    const homePage = new HomePage()
     cy.visit('https://rahulshettyacademy.com/angularpractice/')
-    homePage.getEditBox().type(this.data.name)
+    homePage.getEditBox().type(this.data.email)
     homePage.getSelect().select(this.data.gender)
     homePage.getTwoWayDataBunding().should('have.value', this.data.name)
     homePage.getEditBox().should('have.attr', 'minlength', '2')

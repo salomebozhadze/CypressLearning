@@ -11,12 +11,18 @@ import MailPage from '../pageObject/MailPage.cy';
 
 describe('Cypress HomeWork test suite', ()=>
 {
-    // before
-    // it('Open Site', () => {
 
-    //     cy.visit('https://mailfence.com/')
-
-    // })
+  let data;
+  before(function() {
+  
+    cy.log('Before hook started');
+    cy.fixture('example').then((fdata) => {
+      data = fdata;
+      cy.log('Fixture loaded:', this.data);
+    });
+    cy.log('Before hook completed');
+  });
+  
 
     
     it('Login To Mail', () => {
@@ -26,30 +32,17 @@ describe('Cypress HomeWork test suite', ()=>
 
         cy.visit('https://mailfence.com/')
         loginPage.getSignInButton().click()
-        loginPage.getEmailField().type('sal.bozhadze@mailfence.com')
-        loginPage.getPasswordField().type('Test12345!')
+        loginPage.getEmailField().type(data.email)
+        loginPage.getPasswordField().type(data.password)
         cy.wait(3000)
         loginPage.getLoginButton().click()
         cy.wait(5000)
         documentPage.getDocumentTab().click()
         cy.wait(3000)
-        const fileName = 'example.txt';
-    const fileContent = 'This is the content of the .txt file.';
-    
-    cy.writeFile(`cypress/fixtures/${fileName}`, fileContent);
 
     // Attach the file to the file input element
-    cy.fixture(fileName).then((file) => {
-      cy.get('input[type="file"]').attachFile({
-        fileContent: file,
-        fileName: fileName,
-        mimeType: 'text/plain',
-      });
+    cy.uploadDocument(data.fileName, data.fileName, data.fileContent);
 
-    });
-
-    // Read the .txt file content
-    cy.readFile(`cypress/fixtures/${fileName}`).should('contain', fileContent);
 
     //Send file By mail
     documentPage.getUploadDocumentCheckBox().click()
