@@ -28,6 +28,28 @@ class DocumentaPage {
         return cy.get('#doc_tree_trash')
     }
 
+    getSavedDocument(){
+        return cy.get('.GCSDBRWBFT').contains('example_1.txt')
+    }
+
+    getEmptyDocumentText(){
+        return cy.contains('There are no documents in this folder yet')
+    }
+
+    getCheckBoxAll(){
+        return cy.get('.icon.icon-checkb')
+    }
+
+    getDeleteLink(){
+        return cy.get('span.GCSDBRWBFR').contains('Delete')
+    }
+
+    getConfirmDeleteBtn(){
+        return cy.get('#dialBtn_YES > .btnCtn')
+    }
+
+    
+
 
 }
 export default DocumentaPage;

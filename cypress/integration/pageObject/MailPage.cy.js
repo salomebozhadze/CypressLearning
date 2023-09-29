@@ -46,8 +46,15 @@ class MailPage {
         return cy.get('#dialBtn_OK')
     }
 
-    getTexMail(){
-        return cy.get('#gwt-uid-40')
+    getMailIcon(){
+        return cy.get('.icon24-Message')
+    }
+
+    getDeleteIcon(){
+        return cy.get('[title="To Trash"]')
+    }
+    getEmptyMailText(){
+        return cy.contains('Your inbox is empty')
     }
 
 
