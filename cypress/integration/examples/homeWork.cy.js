@@ -30,7 +30,8 @@ describe('Cypress HomeWork test suite', ()=>
       const mailpage = new MailPage;
       const documentPage =  new DocumentaPage;
 
-        cy.visit('https://mailfence.com/')
+      
+        cy.visit(Cypress.env('url'))
         loginPage.getSignInButton().click()
         loginPage.getEmailField().type(data.email)
         loginPage.getPasswordField().type(data.password)
