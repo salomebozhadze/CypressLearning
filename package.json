@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress run",
+    "headTest": "npm run test -- --headed",
+    "chromeTest": "npm run test -- --browser chrome",
+    "recordDashBoardTest": "npm run test -- --recored --key 5f15eb95-523b-42ae-b4d6-ffc5ca2f0b75 --reporter mochwesome"
   },
   "author": "",
   "license": "ISC",
