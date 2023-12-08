@@ -1,6 +1,5 @@
 {
-  "email" : "sal.bozhadze@mailfence.com",
-  "password" : "Test12345!",
+  "email": "sal.bozhadze@mailfence.com",
   "fileName" : "example.txt",
   "filePath" : "/Users/macbookair/CypressLearning/cypress/fixtures",
   "fileContent" : "This is the content of the .txt file",

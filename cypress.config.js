@@ -2,7 +2,7 @@ const cypress = require("cypress");
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  defaultCommandTimeout: 6000,
+  defaultCommandTimeout: 8000,
   env: {
     url: 'https://mailfence.com/'
 

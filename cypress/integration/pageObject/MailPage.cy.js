@@ -11,7 +11,7 @@ class MailPage {
         return cy.get('#mailSubject')
     }
     getAttachment(){
-        return cy.get('.GCSDBRWBJRB')
+        return cy.contains('example.txt')
     }
 
     getMailSendButton(){
@@ -24,10 +24,6 @@ class MailPage {
 
     getMailTitile(){
         return cy.get('.listSubject').contains('Hello, it is mail')
-    }
-
-    getMailAttachment(){
-        return cy.get('.GCSDBRWBJRB').contains('example.txt')
     }
 
     getAttachmentArrow(){
@@ -43,7 +39,7 @@ class MailPage {
     }
 
     getSaveButton(){
-        return cy.get('#dialBtn_OK')
+        return cy.get('#dialBtn_OK', { timeout : 5000 })
     }
 
     getMailIcon(){

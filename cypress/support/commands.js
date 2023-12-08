@@ -1,17 +1,3 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
 
 Cypress.Commands.add('selectProduct', (productName) => {
     cy.get('h4.card-title').each(($el, index, $list) => {
@@ -43,17 +29,11 @@ Cypress.Commands.add("uploadDocument", (filePath, fileName, fileContent) => {
     // Read the .txt file content (optional)
     cy.readFile(`cypress/fixtures/${fileName}`).should('contain', fileContent);
   });
-  
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-// cypress/support/commands.js
+  // Command#3 Generate attachment and create it in the directory
+Cypress.Commands.add('generateAttachment', (filePath, attachmentName, attachmentExtension, attachmentText)=> {
+  cy.writeFile(`${filePath}\\${attachmentName}.${attachmentExtension}`, `${attachmentText}`);
+  cy.readFile(`${filePath}\\${attachmentName}.${attachmentExtension}`).should("not.be.null");
+})
+  
+

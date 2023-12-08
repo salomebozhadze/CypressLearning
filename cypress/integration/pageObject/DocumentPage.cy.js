@@ -13,15 +13,15 @@ class DocumentaPage {
     }
 
     getSendLink(){
-        return cy.get('.GCSDBRWBDR')
+        return cy.contains('Send')
     }
 
     getSendEmailLink(){
-        return cy.get('.GCSDBRWBOQ > .GCSDBRWBFR').contains('Send by e-mail')
+        return cy.contains('Send by e-mail')
     }
 
     getDocument(){
-        return cy.get('.GCSDBRWBFT').contains('example.txt')
+        return cy.contains('example.txt')
     }
 
     getTrash(){
@@ -29,7 +29,7 @@ class DocumentaPage {
     }
 
     getSavedDocument(){
-        return cy.get('.GCSDBRWBFT').contains('example_1.txt')
+        return cy.contains('example_1.txt')
     }
 
     getEmptyDocumentText(){
@@ -41,7 +41,7 @@ class DocumentaPage {
     }
 
     getDeleteLink(){
-        return cy.get('span.GCSDBRWBFR').contains('Delete')
+        return cy.contains('Delete')
     }
 
     getConfirmDeleteBtn(){

@@ -29,17 +29,17 @@ describe('Cypress HomeWork test suite', ()=>
       const loginPage = new LoginPage;
       const mailpage = new MailPage;
       const documentPage =  new DocumentaPage;
+      const username = Cypress.env('USERNAME');
+      const password = Cypress.env('PASSWORD');
 
-      
-        cy.visit(Cypress.env('url'))
+      //open site and login
+      cy.visit(Cypress.env('url'))
         loginPage.getSignInButton().click()
-        loginPage.getEmailField().type(data.email)
-        loginPage.getPasswordField().type(data.password)
-        cy.wait(3000)
-        loginPage.getLoginButton().click()
-        cy.wait(5000)
-        documentPage.getDocumentTab().click()
-        cy.wait(3000)
+        loginPage.getEmailField().type(username)
+        loginPage.getPasswordField().type(password)
+        loginPage.getLoginButton().should('be.visible').click()
+        documentPage.getDocumentTab().should('be.visible').click()
+  
 
     // Attach the file to the file input element
     cy.uploadDocument(data.fileName, data.fileName, data.fileContent);
@@ -55,46 +55,40 @@ describe('Cypress HomeWork test suite', ()=>
     mailpage.getSuggestEmail().click()
     mailpage.getSubjectField().type(data.mailtext)
     mailpage.getAttachment().should('be.visible')
-    cy.wait(2000)
-    mailpage.getMailSendButton().click()
+    mailpage.getMailSendButton().should('be.visible').click()
 
     //check mail is received
-    cy.wait(4000)
-    mailpage.getRefreshMail().click()
+    mailpage.getRefreshMail().should('be.visible').click()
     mailpage.getMailTitile().should('be.visible').click()
-    mailpage.getMailAttachment().should('be.visible')
+    mailpage.getAttachment().should('be.visible')
     mailpage.getAttachmentArrow().click({ force: true })
     mailpage.getSaveLink().click();
     mailpage.getDocumentFolder().should('be.visible').click()
-    cy.wait(3000)
-    mailpage.getSaveButton().click()
+    cy.wait(2000)
+    mailpage.getSaveButton().should('be.visible').click()
 
     //check mail is saved in documents
     documentPage.getDocumentTab().click()
     documentPage.getSavedDocument().should('be.visible')
     documentPage.getDocument().dragAndDrop("#doc_tree_trash");
     documentPage.getSavedDocument().dragAndDrop("#doc_tree_trash");
-    cy.wait(3000)
     documentPage.getEmptyDocumentText().should('be.visible')
   
 
     //check document is in trash
     documentPage.getTrash().click()
-    cy.wait(2000)
     documentPage.getDocument().should('be.visible')
     documentPage.getSavedDocument().should('be.visible')
     documentPage.getCheckBoxAll().click()
     documentPage.getMoreLinks().click()
     documentPage.getDeleteLink().click();
     documentPage.getConfirmDeleteBtn().click()
-    cy.wait(2000)
     documentPage.getEmptyDocumentText().should('be.visible')
 
     //delete receive mail in mailbox
 
     mailpage.getMailIcon().click()
     mailpage.getDeleteIcon().click()
-    cy.wait(2000)
     mailpage.getEmptyMailText().should('be.visible')
 
 
